@@ -24,6 +24,9 @@ in
 
     buildPhase = ''
       cat $src/slides/title.md \
+      cat $src/slides/motivation.md \
+      cat $src/slides/design.md \
+      cat $src/slides/cbc.md \
           > slides.md
       pandoc -t revealjs --variable=transition:none --highlight-style=zenburn -s slides.md -o index.html
       rm slides.md
