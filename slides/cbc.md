@@ -73,7 +73,7 @@ data Expr
   | ...
 
 data Statement
-  = Assign Expr [Whitespace] {-# '=' #-} [Whitespace] Expr
+  = Assign Expr [Whitespace] {- '=' -} [Whitespace] Expr
   | ...
 ```
 
@@ -248,10 +248,27 @@ NOT LPAREN condition RPAREN
 not(condition)
 ```
 
+<div class="notes">
+There's a mismatch here because Python implementations use a lexer, which transforms the source
+into a sequence of tokens before parsing
+</div>
+
 ##
 
 ```
 NOT NOT LPAREN condition RPAREN
+
+notnot(condition)
+```
+
+<div class="notes">
+If we had two adjacent "not" tokens, they would actually be an identifier token
+</div>
+
+##
+
+```
+IDENT(notnot) LPAREN condition RPAREN
 
 notnot(condition)
 ```
@@ -264,12 +281,19 @@ NOT SPACE NOT LPAREN condition RPAREN
 not not(condition)
 ```
 
+<div class="notes">
+So they need to be separated by a space to be distinct
+</div>
+
 ##
 
 Spaces are only required between tokens when their concatenation would create another token
 
 <div class="notes">
 WAY TOO MUCH to encode with types 
+
+I had brainstormed some ways to get it working, but it seemed like way too much effort for
+the benefit we would get
 </div>
 
 ##
@@ -277,7 +301,7 @@ WAY TOO MUCH to encode with types
 ```
 data Expr :: type_stuff -> * where
   Not
-    :: {-# not #-}
+    :: {- not -}
        [Whitespace]
     -> Expr type_stuff
     -> Expr type_stuff 
@@ -293,7 +317,7 @@ in this case, with smart constructors.
 
 ```
 mkNot
-  :: {-# not #-}
+  :: {- not -}
      [Whitespace]
   -> Expr type_stuff
   -> Either SyntaxError (Expr type_stuff)
@@ -302,4 +326,27 @@ mkNot
 <div class="notes">
 If you're not going to catch errors at compile-time, then you have to catch them at runtime.
 in this case, with smart constructors.
+</div>
+
+##
+
+```
+_Not :: Prism' Expr ([Whitespace], Expr)
+```
+
+<div class="notes">
+Another important consideration is how this things interact with lenses.
+
+This prism would allow you to break the whitespace rules
+</div>
+
+##
+
+```
+_Not :: Prism Expr ExprUnchecked ([Whitespace], ExprUnchecked) ([Whitespace], Expr)
+```
+
+<div class="notes">
+This would be more accurate - it says that you can destructure an Expr into whitespace and
+and expr, and you can construct an ExprUnchecked from whitespace and an ExprUnchecked
 </div>

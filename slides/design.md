@@ -25,3 +25,11 @@ Write & Check
 We also want to be able to write and modify Python programs using Haskell. And in some way,
 we need to have assurance that the Python we are writing is not gibberish.
 </div >
+
+##
+
+Lenses
+
+<div class="notes">
+You should be able to use lenses to construct, query and modify syntax trees
+</div >
