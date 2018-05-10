@@ -1,14 +1,13 @@
 # Correctness by Construction
-<div class="notes">
-In the beginning we decided it was important to have the syntax tree be correct by
-construction, meaning
-</div>
 
 ##
 
 If we can construct some data, then that data is correct (by some measure)
 
 <div class="notes">
+In the beginning we decided it was important to have the syntax tree be correct by
+construction, meaning
+
 It's impossible for you to create a value that is "incorrect"
 </div>
 
@@ -65,7 +64,7 @@ syntax errors.
 
 ##
 
-```
+```haskell
 data Expr
   = Int Int
   | Bool Bool 
@@ -84,7 +83,7 @@ And it would have looked something like this
 
 ##
 
-```
+```haskell
 Assign (Int 1) (Int 2)
 ```
 
@@ -94,7 +93,7 @@ However this isn't correct by construction. This is still a valid term.
 
 ##
 
-```
+```haskell
 {-# language GADTs, DataKinds, KindSignatures #-}
 ```
 
@@ -104,7 +103,7 @@ So if we put on our wizard hats
 
 ##
 
-```
+```haskell
 data Assignable = IsAssignable | NotAssignable
 
 data Expr :: Assignable -> * where
@@ -127,7 +126,7 @@ We can zap the problem away
 
 ##
 
-```
+```haskell
 expr :: Parser (Expr ??)
 ```
 
@@ -137,7 +136,7 @@ But this infects other parts of the program
 
 ##
 
-```
+```haskell
 import Data.Singletons
 
 
@@ -155,7 +154,7 @@ singletons
 
 ##
 
-```
+```haskell
 data ExprU
   = IntU Int
   | BoolU Bool 
@@ -174,7 +173,7 @@ tree
 
 ##
 
-```
+```haskell
 expr :: Parser ExprU
 statement :: Parser StatementU
 ```
@@ -185,7 +184,7 @@ Parse to that
 
 ##
 
-```
+```haskell
 validateExpr :: Sing assignable -> ExprU -> Either SyntaxError (Expr assignable)
 validateStatement :: Sing assignable -> StatementU -> Either SyntaxError Statement
 ```
@@ -225,7 +224,7 @@ Everything fell apart
 
 ##
 
-```
+```haskell
 data Expr :: type_stuff -> * where
   Not
     :: {-# not #-}
@@ -242,11 +241,9 @@ Spaces are only required between tokens when their concatenation would create an
 
 ##
 
-```
-NOT LPAREN condition RPAREN
+`NOT LPAREN condition RPAREN`
 
-not(condition)
-```
+`not(condition)`
 
 <div class="notes">
 There's a mismatch here because Python implementations use a lexer, which transforms the source
@@ -255,11 +252,9 @@ into a sequence of tokens before parsing
 
 ##
 
-```
-NOT NOT LPAREN condition RPAREN
+`NOT NOT LPAREN condition RPAREN`
 
-notnot(condition)
-```
+`notnot(condition)`
 
 <div class="notes">
 If we had two adjacent "not" tokens, they would actually be an identifier token
@@ -267,19 +262,15 @@ If we had two adjacent "not" tokens, they would actually be an identifier token
 
 ##
 
-```
-IDENT(notnot) LPAREN condition RPAREN
+`IDENT(notnot) LPAREN condition RPAREN`
 
-notnot(condition)
-```
+`notnot(condition)`
 
 ##
 
-```
-NOT SPACE NOT LPAREN condition RPAREN
+`NOT SPACE NOT LPAREN condition RPAREN`
 
-not not(condition)
-```
+`not not(condition)`
 
 <div class="notes">
 So they need to be separated by a space to be distinct
@@ -298,7 +289,7 @@ the benefit we would get
 
 ##
 
-```
+```haskell
 data Expr :: type_stuff -> * where
   Not
     :: {- not -}
@@ -315,7 +306,7 @@ in this case, with smart constructors.
 
 ##
 
-```
+```haskell
 mkNot
   :: {- not -}
      [Whitespace]
@@ -330,7 +321,7 @@ in this case, with smart constructors.
 
 ##
 
-```
+```haskell
 _Not :: Prism' Expr ([Whitespace], Expr)
 ```
 
@@ -342,7 +333,7 @@ This prism would allow you to break the whitespace rules
 
 ##
 
-```
+```haskell
 _Not :: Prism Expr ExprUnchecked ([Whitespace], ExprUnchecked) ([Whitespace], Expr)
 ```
 
@@ -350,3 +341,4 @@ _Not :: Prism Expr ExprUnchecked ([Whitespace], ExprUnchecked) ([Whitespace], Ex
 This would be more accurate - it says that you can destructure an Expr into whitespace and
 and expr, and you can construct an ExprUnchecked from whitespace and an ExprUnchecked
 </div>
+

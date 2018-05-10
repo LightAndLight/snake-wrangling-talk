@@ -1,6 +1,4 @@
-#
-
-The Drawing Board
+# The Drawing Board
 
 ##
 
@@ -13,7 +11,7 @@ to leave all validation to runtime
 
 ##
 
-```
+```haskell
 data Expr (ts :: [*])
   = Int Int
   | Bool Bool
@@ -36,7 +34,7 @@ list
 
 ##
 
-```
+```haskell
 Expr '[]
 Expr '[Syntax]
 Statement '[Indentation, Syntax]
@@ -50,7 +48,7 @@ of validation
 
 ##
 
-```
+```haskell
 data Indentation
 
 validateStatementIndentation
@@ -64,7 +62,7 @@ By treating that type level list as a set, validation becomes idempotent
 
 ##
 
-```
+```haskell
 data Syntax
 
 validateStatementSyntax
@@ -80,7 +78,7 @@ particular element
 
 ##
 
-```
+```haskell
 _Not :: Prism' (Expr ts) (Expr '[])_([Whitespace], Expr ts) ([Whitespace], Expr '[])
 ```
 
@@ -90,7 +88,7 @@ This makes it really easy to write prisms which never lie
 
 ##
 
-```
+```haskell
 import Data.Coerce
 
 unvalidateStatement :: Statement ts -> Statement '[]
@@ -130,3 +128,4 @@ error messages, then it's inconsequential that we can construct incorrect trees.
 There are still easy wins for correct-by-construction, like using non-empty lists.
 Very simple things that don't impact on usability.
 </div>
+

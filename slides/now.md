@@ -2,7 +2,7 @@
 
 ##
 
-```
+```haskell
 fact_tr =
   def_ "fact" [p_ "n"]
   [ def_ "go" [p_ "n", p_ "acc"]
@@ -16,7 +16,7 @@ fact_tr =
 
 ##
 
-```
+```python
 def fact(n):
     def go(n, acc):
         if n == 0:
@@ -28,19 +28,19 @@ def fact(n):
 
 ##
 
-```
+```haskell
 optimizeTailRecursion :: Statement '[] -> Maybe (Statement '[])
 ```
 
 ##
 
-```
+```haskell
 rewrite optimizeTailRecursion fact_r
 ```
 
 ##
 
-```
+```python
 def fact(n):
     def go(n, acc):
         n__tr = n
@@ -58,3 +58,4 @@ def fact(n):
         return __res__tr
     return go(n, 1)
 ```
+

@@ -12,23 +12,34 @@ let
 
 in
   pkgs.stdenv.mkDerivation {
-    name = "property-based-testing-talk";
+    name = "snake-wrangling-talk";
     src = ./.;
 
     unpackPhase = ''
       mkdir -p $name/reveal.js
       cd $name
       cp -r ${revealjs}/* ./reveal.js/
+      mkdir ./css
+      cp -r ${revealjs}/lib/css/zenburn.css ./css/zenburn.css
       cp -r $src/img .
     '';
 
     buildPhase = ''
+
       cat $src/slides/title.md \
-      cat $src/slides/motivation.md \
-      cat $src/slides/design.md \
-      cat $src/slides/cbc.md \
+          $src/slides/motivation.md \
+          $src/slides/design.md \
+          $src/slides/cbc.md \
+          $src/slides/drawingboard.md \
+          $src/slides/now.md \
           > slides.md
-      pandoc -t revealjs --variable=transition:none --highlight-style=zenburn -s slides.md -o index.html
+
+      pandoc -t revealjs \
+          --template=$src/template.revealjs \
+          --variable=transition:none \
+          --no-highlight \
+          -s slides.md -o index.html
+
       rm slides.md
     '';
 

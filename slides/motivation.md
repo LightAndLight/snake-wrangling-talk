@@ -1,13 +1,16 @@
 # Motivation
-<div class="notes">
-There's this hypothetical situation
-</div>
 
-## "Haskell's great, but..."
+##
 
-## "...we can't afford to rewrite our entire product."
+"Haskell's great, but..."
 
-## "So we're stuck with `language` for now."
+##
+
+"...we can't afford to rewrite our entire product."
+
+##
+
+"So we're stuck with `language` for now."
 
 <div class="notes">
 Even if people are convinced of the value of a language, it's often too costly
@@ -40,7 +43,7 @@ we decided on that as our first target.
 
 Actually, I think it was a toss up between Javascript and Python so Tony and I played a
 game of table tennis, and Tony won, so we did Python.
-</div >
+</div>
 
 ##
 
@@ -48,4 +51,5 @@ game of table tennis, and Tony won, so we did Python.
 
 <div class="notes">
 For lack of a better name, that project has been known as "hpython"
-</div >
+</div>
+
