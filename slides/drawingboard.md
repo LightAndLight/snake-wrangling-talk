@@ -105,3 +105,28 @@ type level
 ##
 
 How is it safe if you can just `coerce` everything?
+
+<div class="notes">
+Coercing is an implementation detail, and you actually have to go out of your way
+to use it. If we design a high-level API that is easy to use and always correct,
+then users will never consider subverting it.
+</div>
+
+##
+
+Making 'incorrect' things impossible
+
+vs.
+
+Making 'correct' things trivial
+
+<div class="notes">
+I think there is a point in Haskell development where this can become a dichotomy,
+and when confronted which a choice, I choose the latter
+
+If we make it very easy to check whether a syntax tree is correct, and provide helpful
+error messages, then it's inconsequential that we can construct incorrect trees.
+
+There are still easy wins for correct-by-construction, like using non-empty lists.
+Very simple things that don't impact on usability.
+</div>
