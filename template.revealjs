@@ -72,7 +72,7 @@ $endfor$
 $if(date)$
   <p class="date">$date$</p>
 $endif$
-<img src="images/data61-logo.png" alt="data61" style="height: 200px; background-color: inherit; margin-top: 25px;">
+<img src="img/d61.png" alt="data61" style="height: 200px; background-color: inherit; margin-top: 25px;">
 </section>
 $endif$
 $if(toc)$
