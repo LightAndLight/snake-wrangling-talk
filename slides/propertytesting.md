@@ -57,13 +57,13 @@ printStatement = ...
 genStatement :: MonadGen m => m Statement
 genStatement =
   Gen.recursive Gen.choice
-  [ pure Break
-  , ...
-  ]
-  [ Def <$> genName <*> genParameters <*> genBody
-  , While <$> genExpr <*> genBody
-  , ...
-  ]
+    [ pure Break
+    , ...
+    ]
+    [ Def <$> genName <*> genParameters <*> genBody
+    , While <$> genExpr <*> genBody
+    , ...
+    ]
 ```
 
 <div class="notes">
@@ -117,4 +117,7 @@ I've found a bunch of funny behaviours with this
 
 <div class="notes">
 This one we call the 94-paren bug- the parser stack-overflows if you enter 94 or more open parens/braces/brackets
+
+So that's a little bit about some stuff that worked really well for me. Let's talk about some
+things that didn't work well
 </div>

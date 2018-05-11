@@ -94,6 +94,24 @@ However this isn't correct by construction. This is still a valid term.
 ##
 
 ```haskell
+data AssignableExpr
+  = AEInt Int
+  | ...
+
+data Statement
+  = Assign AssignableExpr [Whitespace] {- '=' -} [Whitespace] Expr
+  | ...
+```
+
+<div class="notes">
+You could make a data type for terms which can be assigned to, but assignable expressions are
+a strict subset of expressions, so that would just be duplicating code that really means the
+same thing
+</div>
+
+##
+
+```haskell
 {-# language GADTs, DataKinds, KindSignatures #-}
 ```
 
