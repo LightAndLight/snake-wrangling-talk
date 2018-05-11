@@ -2,6 +2,11 @@
 
 ##
 
+<style>
+.reveal code { font-size: 0.8em; }
+.reveal pre code { max-height: 600px; }
+</style>
+
 "Haskell's great, but..."
 
 ##

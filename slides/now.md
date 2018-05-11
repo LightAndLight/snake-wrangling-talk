@@ -3,6 +3,46 @@
 ##
 
 ```haskell
+append_to =
+  def_ "append_to" [ p_ "element", k_ "to" (list_ []) ]
+    [ expr_ $ call_ ("to" /> "append") [ "element" ]
+    , return_ "to"
+    ]
+```
+
+##
+
+```python
+def append_to (element, to=[]):
+    to.append(element)
+    return to
+```
+
+##
+
+```haskell
+fixMutableDefaultArguments :: Statement '[] -> Maybe (Statement '[])
+```
+
+##
+
+```haskell
+rewrite fixMutableDefaultArguments append_to
+```
+
+##
+
+```python
+def append_to(element, to=None):
+    if to is None:
+        to = []
+    to.append(element)
+    return to
+```
+
+##
+
+```haskell
 fact_tr =
   def_ "fact" [p_ "n"]
   [ def_ "go" [p_ "n", p_ "acc"]

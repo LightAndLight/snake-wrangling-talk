@@ -28,7 +28,7 @@ we need to have assurance that the Python we are writing is not gibberish.
 
 ##
 
-Lenses
+Optics
 
 <div class="notes">
 You should be able to use lenses to construct, query and modify syntax trees

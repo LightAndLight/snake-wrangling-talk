@@ -13,20 +13,20 @@ It's impossible for you to create a value that is "incorrect"
 
 ##
 
-Syntactically correct by construction
-
-<div class="notes">
-Our standard of correctness was "syntactically correct" - in that if you create a syntax
-tree value, print it and run it through python3, then you won't get a syntax error
-</div>
-
-##
-
 Incorrect = type error
 
 <div class="notes">
 In Haskell, the ideal situation is that mistakes end up being type errors. In other words,
 the type checker is checking the correctness of our code. Seems like a good idea.
+</div>
+
+##
+
+Syntactically correct by construction
+
+<div class="notes">
+Our standard of correctness was "syntactically correct" - in that if you create a syntax
+tree value, print it and run it through python3, then you won't get a syntax error
 </div>
 
 ##
@@ -57,9 +57,9 @@ Consider this assignment statement. This is considered a syntax error.
 The Python grammar says something to this effect: that both sides of the equals should be
 parsed as expressions.
 
-Now Python actually has two grammars, this one- which the parser is based on, and a second
-"abstract grammar" which refines the result of parsing. Error in both stages count as
-syntax errors.
+Now Python actually has two and a half grammars, this one- which the parser is based on,
+a second "abstract grammar" which refines the result of parsing, and a third "syntax check"
+phase which has extra syntactic constraints. Error in both stages count as syntax errors.
 </div>
 
 ##
@@ -149,7 +149,8 @@ expr :: Parser (Sigma Assignable Expr)
 
 <div class="notes">
 But this infects other parts of the program. To make the types in parsing you'd have to use
-singletons
+singletons, or alternatively you can parse to an unvalidated tree, and then validate that
+to build the type-safe version
 </div>
 
 ##
@@ -185,8 +186,15 @@ Parse to that
 ##
 
 ```haskell
-validateExpr :: Sing assignable -> ExprU -> Either SyntaxError (Expr assignable)
-validateStatement :: Sing assignable -> StatementU -> Either SyntaxError Statement
+validateExpr
+  :: Sing assignable
+  -> ExprU
+  -> Either SyntaxError (Expr assignable)
+
+validateStatement
+  :: Sing assignable
+  -> StatementU
+  -> Either SyntaxError Statement
 ```
 
 <div class="notes">
@@ -237,6 +245,14 @@ data Expr :: type_stuff -> * where
 <div class="notes">
 Up until now, I had been requiring 1 or more spaces after keywords, but this in incorrect.
 Spaces are only required between tokens when their concatenation would create another token
+</div>
+
+##
+
+`not(condition)`
+
+<div class="notes">
+You can't fit this expression into that data structure
 </div>
 
 ##
@@ -317,6 +333,8 @@ mkNot
 <div class="notes">
 If you're not going to catch errors at compile-time, then you have to catch them at runtime.
 in this case, with smart constructors.
+
+But this isn't compatible with lenses!
 </div>
 
 ##
@@ -334,7 +352,7 @@ This prism would allow you to break the whitespace rules
 ##
 
 ```haskell
-_Not :: Prism Expr ExprUnchecked ([Whitespace], ExprUnchecked) ([Whitespace], Expr)
+_Not :: Prism Expr ExprU ([Whitespace], ExprU) ([Whitespace], Expr)
 ```
 
 <div class="notes">
@@ -342,3 +360,12 @@ This would be more accurate - it says that you can destructure an Expr into whit
 and expr, and you can construct an ExprUnchecked from whitespace and an ExprUnchecked
 </div>
 
+##
+
+It's all a bit too much
+
+<div class="notes">
+By this stage I had made too many concessions to get to this idea of
+"correct-by-construction", and started to question what I was getting in return. I wasn't
+satisfied, so I started thinking about better designs.
+</div>

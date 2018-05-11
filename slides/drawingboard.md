@@ -20,7 +20,10 @@ data Expr (ts :: [*])
   | ...
 
 data Statement (ts :: [*])
-  = Assign (Expr ts) [Whitespace] {- '=' -} [Whitespace] (Expr ts)
+  = Assign
+      (Expr ts)
+      [Whitespace] {- '=' -} [Whitespace]
+      (Expr ts)
   | ...
 ```
 
@@ -35,10 +38,17 @@ list
 ##
 
 ```haskell
+-- raw, unvalidated
 Expr '[]
-Expr '[Syntax]
-Statement '[Indentation, Syntax]
-Statement '[Indentation, Syntax, Scope]
+
+-- syntax validated
+Expr '[Syntax]                          
+
+-- indentation & syntax validated
+Statement '[Indentation, Syntax]        
+
+-- indentation, syntax & scope validated
+Statement '[Indentation, Syntax, Scope] 
 ```
 
 <div class="notes">
@@ -79,7 +89,12 @@ particular element
 ##
 
 ```haskell
-_Not :: Prism' (Expr ts) (Expr '[])_([Whitespace], Expr ts) ([Whitespace], Expr '[])
+_Not
+  :: Prism'
+       (Expr ts)
+       (Expr '[])
+       ([Whitespace], Expr ts)
+       ([Whitespace], Expr '[])
 ```
 
 <div class="notes">
