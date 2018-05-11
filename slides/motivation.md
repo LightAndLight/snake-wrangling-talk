@@ -15,7 +15,7 @@
 
 ##
 
-"So we're stuck with `language` for now."
+"So we're stuck with `LANG` for now."
 
 <div class="notes">
 Even if people are convinced of the value of a language, it's often too costly

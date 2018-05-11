@@ -29,6 +29,7 @@ in
       cat $src/slides/title.md \
           $src/slides/motivation.md \
           $src/slides/design.md \
+          $src/slides/propertytesting.md \
           $src/slides/cbc.md \
           $src/slides/drawingboard.md \
           $src/slides/now.md \
