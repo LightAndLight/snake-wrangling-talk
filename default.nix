@@ -30,6 +30,7 @@ in
           $src/slides/motivation.md \
           $src/slides/design.md \
           $src/slides/propertytesting.md \
+          $src/slides/concretesyntax.md \
           $src/slides/cbc.md \
           $src/slides/drawingboard.md \
           $src/slides/now.md \

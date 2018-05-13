@@ -167,8 +167,7 @@ expr :: Parser (Sigma Assignable Expr)
 
 <div class="notes">
 But this infects other parts of the program. To make the types in parsing you'd have to use
-singletons, or alternatively you can parse to an unvalidated tree, and then validate that
-to build the type-safe version
+singletons in some form. But that's a bit too... coupled.
 </div>
 
 ##
@@ -186,8 +185,7 @@ data StatementU
 ```
 
 <div class="notes">
-Or for better error messages, you create an unvalidate datatype that mirrors the syntax
-tree
+A better design is to create an unvalidate datatype that mirrors the syntax tree
 </div>
 
 ##
@@ -216,7 +214,7 @@ validateStatement
 ```
 
 <div class="notes">
-And then validate *that* in a way that builds the correct-by-construction one.
+And then validate it in a way that builds the correct-by-construction one.
 </div>
 
 ##
@@ -224,9 +222,10 @@ And then validate *that* in a way that builds the correct-by-construction one.
 Rinse and repeat
 
 <div class="notes">
-It doesn't seem like a big deal in this instance, but there were more gotchas, some less
-intuitive than this one, and the real syntax tree was much bigger so the changes propagated
-across a lot more code.
+I think this pattern is really cool for getting quick type-safety wins, but it becomes
+more unwieldy the more conditions you need to encode.
+
+The real syntax tree was much bigger so the changes propagated across a lot more code.
 </div>
 
 ##
