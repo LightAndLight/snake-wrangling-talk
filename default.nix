@@ -34,6 +34,7 @@ in
           $src/slides/concretesyntax.md \
           $src/slides/drawingboard.md \
           $src/slides/now.md \
+          $src/slides/summary.md \
           > slides.md
 
       pandoc -t revealjs \
