@@ -28,7 +28,9 @@ data Statement (ts :: [*])
 ```
 
 <div class="notes">
-A single syntax tree
+Simple data structures that represents the python code, not the syntax
+
+It is still decorated with whitespace and such needed for formatting, but that's ignorable
 
 We still want some way to differentiate between syntactically correct and
 unvalidated trees on the type level, which we can do using the type level
@@ -42,10 +44,10 @@ list
 Expr '[]
 
 -- syntax validated
-Expr '[Syntax]                          
+Expr '[Syntax]
 
 -- indentation & syntax validated
-Statement '[Indentation, Syntax]        
+Statement '[Indentation, Syntax]
 
 -- indentation, syntax & scope validated
 Statement '[Indentation, Syntax, Scope] 
@@ -111,18 +113,8 @@ unvalidateStatement = coerce
 ```
 
 <div class="notes">
-It also means that "unvalidation" is free, because it only happens at the
-type level
-</div>
-
-##
-
-How is it safe if you can just `coerce` everything?
-
-<div class="notes">
-Coercing is an implementation detail, and you actually have to go out of your way
-to use it. If we design a high-level API that is easy to use and always correct,
-then users will never consider subverting it.
+It also means that "unvalidation" is free, because the type-level validation list is a
+phantom type, so you can coerce it away
 </div>
 
 ##
@@ -142,5 +134,26 @@ error messages, then it's inconsequential that we can construct incorrect trees.
 
 There are still easy wins for correct-by-construction, like using non-empty lists.
 Very simple things that don't impact on usability.
+
+This is why I'm okay with the use of coerce. Coercing is an implementation detail,
+and you actually have to go out of your way to use it. If we design a high-level API that
+is easy to use and always correct, then users will never consider subverting it.
+</div>
+
+##
+
+Modelling how things appear
+
+vs.
+
+Modelling what things mean
+
+<div class="notes">
+In other words, the dichotomy between concrete and abstract.
+
+Your API has a good user experience when it lines up with the user's conceptual model. And
+I think that's what happens when we shift from concrete syntax to abstract syntax. People's
+mental model of python is not the syntax, it's the concepts behind the syntax, so people
+can more easily draw upon their existing knowledge to use the library.
 </div>
 

@@ -133,7 +133,7 @@ data Expr :: Assignable -> * where
 data Statement
   = Assign
       (Expr 'IsAssignable)
-      [Whitespace] {-# '=' #-} [Whitespace]
+      [Whitespace] {- '=' -} [Whitespace]
       (Expr 'NotAssignable)
   | ...
 ```
@@ -180,7 +180,7 @@ data ExprU
   | ...
 
 data StatementU
-  = AssignU ExprU [Whitespace] {-# '=' #-} [Whitespace] ExprU
+  = AssignU ExprU [Whitespace] {- '=' -} [Whitespace] ExprU
   | ...
 ```
 
@@ -252,7 +252,7 @@ Everything fell apart
 ```haskell
 data Expr :: type_stuff -> * where
   Not
-    :: {-# not #-}
+    :: {- not -}
        NonEmpty Whitespace
     -> Expr type_stuff
     -> Expr type_stuff 
@@ -261,7 +261,7 @@ data Expr :: type_stuff -> * where
 
 <div class="notes">
 Up until now, I had been requiring 1 or more spaces after keywords, but this in incorrect.
-Spaces are only required between tokens when their concatenation would create another token
+Spaces are only required between tokens when their concatenation would be a single token
 </div>
 
 ##
@@ -311,7 +311,7 @@ So they need to be separated by a space to be distinct
 
 ##
 
-Spaces are only required between tokens when their concatenation would create another token
+Spaces are only required between tokens when their concatenation would give a single token
 
 <div class="notes">
 WAY TOO MUCH to encode with types 
@@ -374,7 +374,8 @@ _Not :: Prism Expr ExprU ([Whitespace], ExprU) ([Whitespace], Expr)
 
 <div class="notes">
 This would be more accurate - it says that you can destructure an Expr into whitespace and
-and expr, and you can construct an ExprUnchecked from whitespace and an ExprUnchecked
+and expr, and you can construct an ExprU from whitespace and an ExprU, so you'd be forced
+to re-validate the result of constructing something with the prism
 </div>
 
 ##
@@ -382,7 +383,11 @@ and expr, and you can construct an ExprUnchecked from whitespace and an ExprUnch
 It's all a bit too much
 
 <div class="notes">
-By this stage I had made too many concessions to get to this idea of
-"correct-by-construction", and started to question what I was getting in return. I wasn't
-satisfied, so I started thinking about better designs.
+By this stage I had made too many concessions to get to this idea of "correct-by-construction"
+
+And considering that we are forced to do some run-time validation, I began to question the
+value of the correct by construction approach.
+
+This was a mistake because I sacrificed way too much for to achieve something that would
+provide only a little value in comparison.
 </div>

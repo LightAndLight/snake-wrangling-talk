@@ -2,6 +2,8 @@
 
 ##
 
+Have the data structures mirror the syntax
+
 <div class="notes">
 Because we decided to preserve formatting, I thought the best starting point for
 a data structure would be one that matches the grammar
@@ -33,7 +35,7 @@ And I consider it a mistake
 Syntax is not code
 
 <div class="notes">
-The grammar only exists because we read and write code using free-form text.
+The grammar only exists because we read and write code using free-form text
 Code is more abstract, it's meaning which the syntax conveys. The grammar is
 often more complicated to appease parser generators
 

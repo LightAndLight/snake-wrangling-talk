@@ -105,6 +105,9 @@ genStatement =
 ```
 
 <div class="notes">
+You can build random generators with applicative combinators. This is a recursive generator
+for the Statement type.
+
 In Python you can only have a break statement inside a loop, and if one is found outside a
 loop then that's a syntax error.
 
@@ -130,13 +133,43 @@ But it might generate amidst a jumble of other information
 ##
 
 ```python
+def a():
+  def b():
+    ...
+    break
+```
+
+<div class="notes">
+The generator knows how to shrink the input
+</div>
+
+##
+
+```python
+def a():
+  ...
+  break
+```
+
+<div class="notes">
+And will keep shrinking and re-testing
+</div>
+
+##
+
+```python
+...
+break
+```
+
+##
+
+```python
 break
 ```
 
 <div class="notes">
-The generator combinators know build up a shrinking function, so when the test fails, it
-repeatedly shrinks the input and re-runs the function, until it ends up with something
-like that
+Until it finds the "smallest" input that fails the test
 </div>
 
 ##
