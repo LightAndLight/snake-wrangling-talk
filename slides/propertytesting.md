@@ -4,9 +4,44 @@
 
 Invaluable!
 
+<div class="notes">
+In property testing you assert that the output of a function should always have some
+relation to the input, for all input values. You build a random generator, and the framework
+will use that to generate many random values and check that the property holds
+</div>
+
 ##
 
-`python3` is the final authority on the definition of Python
+Property of `plus`:
+
+`for all inputs A and B: A + B == B + A`
+
+##
+
+Parsing, printing, and validating Python source have useful properties
+
+##
+
+`print . parse = id`
+
+<div class="notes">
+For example, print dot parse equals id is a property that says "for all python programs,
+printing the result of successfully parsing the input gives back the original program".
+
+This is the round-trip property from earlier
+</div>
+
+##
+
+How do you know what you are really implementing Python?
+
+<div class="notes">
+Where this really comes in handy is answering this question.
+</div>
+
+##
+
+`python3` is the final authority
 
 <div class="notes">
 So if I claim that a function will always produce valid python code, what better way to
@@ -17,13 +52,16 @@ check than by running it through the python interpreter?
 
 1. Generate random Python program
 2. Compile it with `python3` (running it could diverge!)
-3. Assert something about the result
+3. Assert something about the result (exit code, stdout, stderr)
 
 ##
 
 You don't need to remember the whole language
 
 <div class="notes">
+The Python language reference is big and not awesomely written. There's edge cases hidden
+away there.
+
 You don't need to load the language reference into your brain while you write. You can write
 your best approximation, run the test suite, and it will tell you where you screwed up
 </div>
