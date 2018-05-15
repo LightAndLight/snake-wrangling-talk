@@ -10,7 +10,11 @@ To begin with, all language tools need to parse and print
 
 ##
 
-`print . parse = id`
+`(print . parse) :: String -> String`
+
+`=`
+
+`id`
 
 <div class="notes">
 We also decided that it was important to have a round-trip property - that printing the
@@ -31,6 +35,9 @@ we need to have assurance that the Python we are writing is not gibberish.
 Optics
 
 <div class="notes">
-You should be able to use lenses to construct, query and modify syntax trees
+You should be able to use lenses and prisms to construct, query and modify syntax trees
+
+There's also the possibility of using classy prisms to capture the overlap between python
+2 and 3
 </div>
 

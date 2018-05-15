@@ -373,7 +373,7 @@ This prism would allow you to break the whitespace rules
 ##
 
 ```haskell
-_Not :: Prism Expr ExprU ([Whitespace], ExprU) ([Whitespace], Expr)
+_Not :: Prism Expr ExprU ([Whitespace], Expr) ([Whitespace], ExprU)
 ```
 
 <div class="notes">

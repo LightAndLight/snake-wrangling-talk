@@ -35,7 +35,7 @@ Property testing is important to me because...
 
 ##
 
-How do you know what you are really implementing Python?
+How do you know that you are really implementing Python?
 
 <div class="notes">
 Where this really comes in handy is answering this question.
@@ -177,7 +177,7 @@ I've found a bunch of funny behaviours with this
 ##
 
 ```python
-[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
+((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((
 ```
 
 <div class="notes">
