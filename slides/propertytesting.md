@@ -29,6 +29,8 @@ For example, print dot parse equals id is a property that says "for all python p
 printing the result of successfully parsing the input gives back the original program".
 
 This is the round-trip property from earlier
+
+Property testing is important to me because...
 </div>
 
 ##
@@ -85,34 +87,26 @@ more reasonable.
 ```haskell
 data Statement
   = Break
-  | Def Name [Parameter] Body
-  | While Expr Body
+  | Def Name [Parameter] [Statement]
+  | While Expr [Statement]
   | ...
 
 printStatement :: Statement -> String
 printStatement = ...
   
 genStatement :: MonadGen m => m Statement
-genStatement =
-  Gen.recursive Gen.choice
-    [ pure Break
-    , ...
-    ]
-    [ Def <$> genName <*> genParameters <*> genBody
-    , While <$> genExpr <*> genBody
-    , ...
-    ]
+genStatement = ...
 ```
 
 <div class="notes">
-You can build random generators with applicative combinators. This is a recursive generator
-for the Statement type.
+You can build random generators with applicative combinators.
 
 In Python you can only have a break statement inside a loop, and if one is found outside a
 loop then that's a syntax error.
 
-So if I started off with some code like this and wrote a property that said "printing any
-PythonStatement produces syntactically correct Python code", then it would eventually fail
+So if we have a generator which can generate any statement and wrote a property that said
+"printing any
+Statement produces syntactically correct Python code", then it would eventually fail
 because it would generate a tree with 'break' outside
 </div>
 

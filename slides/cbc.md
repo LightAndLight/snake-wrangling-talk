@@ -37,6 +37,11 @@ Python syntax isn't very straightforward
 In domains that follow a consistent, logical design, leaning on the type system for things
 like this is a boon. But there are so many gotchas in the Python syntax, and fixing each
 one with type invariants made the library more and more complex.
+
+Python has 3 levels of "grammar" or "syntax". The first level is the "concrete" grammar - the one
+the parser implements. The second level is the "actual" grammar, which corrects a bunch often
+things that they didn't encode in the concrete grammar. The third tier is some edge cases on top
+of that.
 </div>
 
 ##
@@ -208,8 +213,7 @@ validateExpr
   -> Either SyntaxError (Expr assignable)
 
 validateStatement
-  :: Sing assignable
-  -> StatementU
+  :: StatementU
   -> Either SyntaxError Statement
 ```
 
