@@ -151,28 +151,13 @@ We can zap the problem away
 
 ```haskell
 expr :: Parser (Expr ??)
+genExpr :: MonadGen m => m (Expr ??)
 ```
 
 <div class="notes">
 But this infects other parts of the program
-</div>
 
-##
-
-```haskell
-import Data.Singletons
-
-
-expr :: Sing assignable -> Parser (Expr assignable)
-
--- or
-
-expr :: Parser (Sigma Assignable Expr)
-```
-
-<div class="notes">
-But this infects other parts of the program. To make the types in parsing you'd have to use
-singletons in some form. But that's a bit too... coupled.
+You have to do more type-level tricks to get there
 </div>
 
 ##
@@ -190,7 +175,7 @@ data StatementU
 ```
 
 <div class="notes">
-A better design is to create an unvalidate datatype that mirrors the syntax tree
+Or create an unvalidated datatype that mirrors the syntax tree
 </div>
 
 ##
@@ -207,6 +192,8 @@ Parse to that
 ##
 
 ```haskell
+import Data.Singletons
+
 validateExpr
   :: Sing assignable
   -> ExprU
@@ -219,6 +206,9 @@ validateStatement
 
 <div class="notes">
 And then validate it in a way that builds the correct-by-construction one.
+
+This is what I chose to do, but it's still unsatisfying because there is a lot of code
+duplication. Validated terms are a subset of unvalidated terms.
 </div>
 
 ##
@@ -226,8 +216,8 @@ And then validate it in a way that builds the correct-by-construction one.
 Rinse and repeat
 
 <div class="notes">
-I think this pattern is really cool for getting quick type-safety wins, but it becomes
-more unwieldy the more conditions you need to encode.
+I think datakinds and gadts are really cool for getting quick compiler-checked wins, but it
+becomes more unwieldy the more conditions you need to encode.
 
 The real syntax tree was much bigger so the changes propagated across a lot more code.
 </div>
@@ -260,6 +250,9 @@ data Expr :: type_stuff -> * where
        NonEmpty Whitespace
     -> Expr type_stuff
     -> Expr type_stuff 
+  Parens
+    :: Expr type_stuff
+    -> Expr type_stuff 
   ...
 ```
 
@@ -278,39 +271,41 @@ You can't fit this expression into that data structure
 
 ##
 
-`NOT LPAREN condition RPAREN`
-
-`not(condition)`
-
-<div class="notes">
-There's a mismatch here because Python implementations use a lexer, which transforms the source
-into a sequence of tokens before parsing
-</div>
-
-##
-
-`NOT NOT LPAREN condition RPAREN`
-
-`notnot(condition)`
-
-<div class="notes">
-If we had two adjacent "not" tokens, they would actually be an identifier token
-</div>
+```haskell
+data Expr :: type_stuff -> * where
+  Not
+    :: {- not -}
+       [Whitespace]
+    -> Expr type_stuff
+    -> Expr type_stuff 
+  Parens
+    :: Expr type_stuff
+    -> Expr type_stuff 
+  ...
+```
 
 ##
 
-`IDENT(notnot) LPAREN condition RPAREN`
+```haskell
+Not [] (Parens condition)
+```
 
-`notnot(condition)`
+```python
+not(condition)
+```
 
 ##
 
-`NOT SPACE NOT LPAREN condition RPAREN`
+```haskell
+Not [] (Not [] (Parens condition))
+```
 
-`not not(condition)`
+```python
+notnot(condition)
+```
 
 <div class="notes">
-So they need to be separated by a space to be distinct
+But now that's a function call, not logical negation, because "notnot" is an identifier
 </div>
 
 ##
@@ -320,25 +315,8 @@ Spaces are only required between tokens when their concatenation would give a si
 <div class="notes">
 WAY TOO MUCH to encode with types 
 
-I had brainstormed some ways to get it working, but it seemed like way too much effort for
-the benefit we would get
-</div>
-
-##
-
-```haskell
-data Expr :: type_stuff -> * where
-  Not
-    :: {- not -}
-       [Whitespace]
-    -> Expr type_stuff
-    -> Expr type_stuff 
-  ...
-```
-
-<div class="notes">
-If you're not going to catch errors at compile-time, then you have to catch them at runtime.
-in this case, with smart constructors.
+I had brainstormed some ways to get it working, but it seemed like way too much effort,
+and it would be too complex for the benefit we would get
 </div>
 
 ##
@@ -352,10 +330,8 @@ mkNot
 ```
 
 <div class="notes">
-If you're not going to catch errors at compile-time, then you have to catch them at runtime.
-in this case, with smart constructors.
-
-But this isn't compatible with lenses!
+We have to revert to runtime checking with smart constructors, so we lose the game of
+incorrect = type errors
 </div>
 
 ##
@@ -365,7 +341,8 @@ _Not :: Prism' Expr ([Whitespace], Expr)
 ```
 
 <div class="notes">
-Another important consideration is how this things interact with lenses.
+And I also realised that smart constructors aren't compatible with traversals and prisms in
+general
 
 This prism would allow you to break the whitespace rules
 </div>
@@ -384,14 +361,27 @@ to re-validate the result of constructing something with the prism
 
 ##
 
+```haskell
+Expr -> ExprU
+```
+
+<div class="notes">
+And a third problem- if you go with the 'unvalidating prism' style, you will need a function
+that takes expressions to their unvalidated form. And in the current conception of the library
+you would need to traverse the Expr and rebuild the equivalent ExprU.
+
+But as I said before, I think Expr is a subset of ExprU, so that operation shouldn't cost
+anything
+</div>
+
+##
+
 It's all a bit too much
 
 <div class="notes">
-By this stage I had made too many concessions to get to this idea of "correct-by-construction"
+I made the library more complicated to get compiler-checked guarantees, and I couldn't even
+get that for the whole domain. I think it would only have value if it were all compiler
+checked.
 
-And considering that we are forced to do some run-time validation, I began to question the
-value of the correct by construction approach.
-
-This was a mistake because I sacrificed way too much for to achieve something that would
-provide only a little value in comparison.
+Now it's just inconsistently designed.
 </div>

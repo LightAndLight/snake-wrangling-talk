@@ -41,10 +41,6 @@ often that doesn't happen by recreating it as it immediately appears
 
 ##
 
-Model the concepts, not the way people represent the concepts
-
-##
-
 Mistakes are probably necessary
 
 <div class="notes">
