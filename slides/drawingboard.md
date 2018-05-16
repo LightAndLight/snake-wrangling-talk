@@ -11,6 +11,14 @@ to leave all validation to runtime
 
 ##
 
+~~Concrete Syntax Tree~~
+
+##
+
+~~Validated/Unvalidated Trees~~
+
+##
+
 ```haskell
 data Expr (ts :: [*])
   = Int Int

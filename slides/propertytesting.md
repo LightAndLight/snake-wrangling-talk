@@ -25,10 +25,10 @@ Parsing, printing, and validating Python source have useful properties
 `print . parse = id`
 
 <div class="notes">
-For example, print dot parse equals id is a property that says "for all python programs,
-printing the result of successfully parsing the input gives back the original program".
+For example, the round-trip property from earlier
 
-This is the round-trip property from earlier
+Print dot parse equals id is a property that says "for all python programs,
+printing the result of successfully parsing the input gives back the original program text".
 
 Property testing is important to me because...
 </div>

@@ -2,11 +2,6 @@
 
 ##
 
-<style>
-.reveal code { font-size: 0.8em; }
-.reveal pre code { max-height: 600px; }
-</style>
-
 "Haskell's great, but..."
 
 ##
@@ -48,13 +43,5 @@ we decided on that as our first target.
 
 Actually, I think it was a toss up between Javascript and Python so Tony and I played a
 game of table tennis, and Tony won, so we did Python.
-</div>
-
-##
-
-`hpython`
-
-<div class="notes">
-For lack of a better name, that project has been known as "hpython"
 </div>
 

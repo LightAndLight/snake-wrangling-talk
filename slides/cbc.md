@@ -263,11 +263,9 @@ Spaces are only required between tokens when their concatenation would be a sing
 
 ##
 
-`not(condition)`
-
-<div class="notes">
-You can't fit this expression into that data structure
-</div>
+```haskell
+NonEmpty Whitespace -> [Whitespace]
+```
 
 ##
 
@@ -290,9 +288,7 @@ data Expr :: type_stuff -> * where
 Not [] (Parens condition)
 ```
 
-```python
-not(condition)
-```
+`not(condition)`
 
 ##
 
@@ -300,9 +296,7 @@ not(condition)
 Not [] (Not [] (Parens condition))
 ```
 
-```python
-notnot(condition)
-```
+`notnot(condition)`
 
 <div class="notes">
 But now that's a function call, not logical negation, because "notnot" is an identifier

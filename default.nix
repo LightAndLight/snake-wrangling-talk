@@ -26,7 +26,9 @@ in
 
     buildPhase = ''
 
-      cat $src/slides/title.md \
+      cat \
+          $src/slides/title.md \
+          $src/slides/intro.md \
           $src/slides/motivation.md \
           $src/slides/design.md \
           $src/slides/propertytesting.md \
