@@ -35,8 +35,8 @@ in
           $src/slides/cbc.md \
           $src/slides/concretesyntax.md \
           $src/slides/drawingboard.md \
-          $src/slides/now.md \
           $src/slides/summary.md \
+          $src/slides/coolstuff.md \
           > slides.md
 
       pandoc -t revealjs \
