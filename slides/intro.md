@@ -33,6 +33,16 @@ It renders as this
 
 ##
 
+```python
+def append_to (element, to=None):
+    if to is None:
+        to = []
+    to.append(element)
+    return to
+```
+
+##
+
 ```haskell
 fixMutableDefaultArguments :: Statement -> Maybe Statement
 ```
@@ -45,25 +55,11 @@ if it contains mutable default arguments
 ##
 
 ```haskell
-rewrite fixMutableDefaultArguments append_to
-  :: Statement '[] -> Statement '[]
+rewriteOn _Statements fixMutableDefaultArguments
+  :: Module -> Module
 ```
 
 <div class="notes">
 And then use `rewrite` from Plated in lens to apply
-</div>
-
-##
-
-```python
-def append_to(element, to=None):
-    if to is None:
-        to = []
-    to.append(element)
-    return to
-```
-
-<div class="notes">
-It'll transform it to something that looks like this
 </div>
 

@@ -77,7 +77,7 @@ data Expr
   | ...
 
 data Statement
-  = Assign Expr [Whitespace] {- '=' -} [Whitespace] Expr
+  = Assign Expr Expr
   | ...
 ```
 
@@ -99,12 +99,18 @@ However this isn't correct by construction. This is still a valid term.
 ##
 
 ```haskell
+data Expr
+  = Int Int
+  | Bool Bool 
+  | Var String
+  | ...
+
 data AssignableExpr
-  = AEInt Int
+  = AEVar String
   | ...
 
 data Statement
-  = Assign AssignableExpr [Whitespace] {- '=' -} [Whitespace] Expr
+  = Assign AssignableExpr Expr
   | ...
 ```
 
@@ -136,10 +142,7 @@ data Expr :: Assignable -> * where
   ...
 
 data Statement
-  = Assign
-      (Expr 'IsAssignable)
-      [Whitespace] {- '=' -} [Whitespace]
-      (Expr 'NotAssignable)
+  = Assign (Expr 'IsAssignable) (Expr 'NotAssignable)
   | ...
 ```
 
@@ -170,7 +173,7 @@ data ExprU
   | ...
 
 data StatementU
-  = AssignU ExprU [Whitespace] {- '=' -} [Whitespace] ExprU
+  = AssignU ExprU ExprU
   | ...
 ```
 

@@ -28,10 +28,7 @@ data Expr (ts :: [*])
   | ...
 
 data Statement (ts :: [*])
-  = Assign
-      (Expr ts)
-      [Whitespace] {- '=' -} [Whitespace]
-      (Expr ts)
+  = Assign (Expr ts) (Expr ts)
   | ...
 ```
 
