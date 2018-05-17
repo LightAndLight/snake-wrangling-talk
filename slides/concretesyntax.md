@@ -21,17 +21,6 @@ data structures.
 
 ##
 
-`AST.hs` had way too many lines of code
-
-<div class="notes">
-There was way too much code. The amount of changes I had to make when I wanted
-to add something new to the types was setting off alarm bells.
-
-And I consider it a mistake
-</div>
-
-##
-
 Syntax is not code
 
 <div class="notes">

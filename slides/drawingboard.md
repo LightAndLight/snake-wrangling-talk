@@ -97,7 +97,7 @@ particular element
 
 ```haskell
 _Not
-  :: Prism'
+  :: Prism
        (Expr ts)
        (Expr '[])
        ([Whitespace], Expr ts)
