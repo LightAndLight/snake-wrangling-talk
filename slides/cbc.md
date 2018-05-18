@@ -69,9 +69,7 @@ And it would have looked something like this
 Assign (Int 1) (Int 2)
 ```
 
-```python
-1 = 2
-```
+`1 = 2`
 
 <div class="notes">
 There are certain things you can't assign to, including literals. And if you try then you
@@ -364,13 +362,7 @@ you would need to traverse the Expr and rebuild the equivalent ExprU.
 
 But as I said before, I think Expr is a subset of ExprU, so that operation shouldn't cost
 anything
-</div>
 
-##
-
-It's all a bit too much
-
-<div class="notes">
 I made the library more complicated to get compiler-checked guarantees, and I couldn't even
 get that for the whole domain. I think it would only have value if it were all compiler
 checked.

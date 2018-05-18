@@ -22,6 +22,16 @@ Parsing, printing, and validating Python source have useful properties
 
 ##
 
+```haskell
+print . parse = id
+```
+
+<div class="notes">
+Like the round trip property
+</div>
+
+##
+
 Shrinking can find minimal counter-examples
 
 <div class="notes">

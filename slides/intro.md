@@ -55,8 +55,7 @@ if it contains mutable default arguments
 ##
 
 ```haskell
-rewriteOn _Statements fixMutableDefaultArguments
-  :: Module -> Module
+rewriteOn _Statements fixMutableDefaultArguments :: Module -> Module
 ```
 
 <div class="notes">
