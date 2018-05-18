@@ -53,9 +53,6 @@ Expr '[Syntax]
 
 -- indentation & syntax validated
 Statement '[Indentation, Syntax]
-
--- indentation, syntax & scope validated
-Statement '[Indentation, Syntax, Scope] 
 ```
 
 <div class="notes">

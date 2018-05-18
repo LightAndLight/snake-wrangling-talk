@@ -189,12 +189,13 @@ Parse to that
 ##
 
 ```haskell
-import Data.Singletons
+validateExprAssignable
+  :: ExprU
+  -> Either SyntaxError (Expr 'Assignable)
 
-validateExpr
-  :: Sing assignable
-  -> ExprU
-  -> Either SyntaxError (Expr assignable)
+validateExprNotAssignable
+  :: ExprU
+  -> Either SyntaxError (Expr 'NotAssignable)
 
 validateStatement
   :: StatementU
