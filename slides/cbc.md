@@ -46,29 +46,6 @@ of that.
 
 ##
 
-`1 = 2`
-
-<div class="notes">
-Consider this assignment statement. This is considered a syntax error.
-
-"Can't assign to a literal"
-</div>
-
-##
-
-`assign_stmt ::= expr '=' expr`
-
-<div class="notes">
-The Python grammar says something to this effect: that both sides of the equals should be
-parsed as expressions.
-
-Now Python actually has two and a half grammars, this one- which the parser is based on,
-a second "abstract grammar" which refines the result of parsing, and a third "syntax check"
-phase which has extra syntactic constraints. Error in both stages count as syntax errors.
-</div>
-
-##
-
 ```haskell
 data Expr
   = Int Int
@@ -92,8 +69,13 @@ And it would have looked something like this
 Assign (Int 1) (Int 2)
 ```
 
+```python
+1 = 2
+```
+
 <div class="notes">
-However this isn't correct by construction. This is still a valid term.
+There are certain things you can't assign to, including literals. And if you try then you
+get a syntax error in the python repl
 </div>
 
 ##
@@ -154,13 +136,25 @@ We can zap the problem away
 
 ```haskell
 expr :: Parser (Expr ??)
-genExpr :: MonadGen m => m (Expr ??)
 ```
 
 <div class="notes">
 But this infects other parts of the program
+</div>
 
-You have to do more type-level tricks to get there
+##
+
+```haskell
+exprAssignable :: Parser (Expr 'Assignable)
+exprNotAssignable :: Parser (Expr 'NotAssignable)
+```
+
+<div class="notes">
+You could split up the parser so that you can pick which sort of expression you're
+trying to parse
+
+But this will get you weird errors because the parser now describes an ambiguous
+grammar
 </div>
 
 ##
@@ -178,7 +172,7 @@ data StatementU
 ```
 
 <div class="notes">
-Or create an unvalidated datatype that mirrors the syntax tree
+It's better to create a dumb, unvalidated data structure
 </div>
 
 ##

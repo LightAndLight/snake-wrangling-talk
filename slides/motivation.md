@@ -2,23 +2,6 @@
 
 ##
 
-"Haskell's great, but..."
-
-##
-
-"...we can't afford to rewrite our entire product."
-
-##
-
-"So we're stuck with `LANG` for now."
-
-<div class="notes">
-Even if people are convinced of the value of a language, it's often too costly
-to actually use it on the job.
-</div>
-
-##
-
 How can we bring the benefits of better languages to existing codebases?
 
 <div class="notes">
