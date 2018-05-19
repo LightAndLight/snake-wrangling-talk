@@ -77,22 +77,6 @@ By treating that type level list as a set, validation becomes idempotent
 ##
 
 ```haskell
-data Syntax
-
-validateStatementSyntax
-  :: Member Indentation ts
-  => Statement ts
-  -> Either SyntaxError (Statement (Nub (Syntax ': ts)))
-```
-
-<div class="notes">
-You can also express preconditions by asserting that the set contains a
-particular element
-</div>
-
-##
-
-```haskell
 _Not
   :: Prism
        (Expr ts)

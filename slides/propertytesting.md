@@ -2,19 +2,15 @@
 
 ##
 
-Invaluable!
+Property of `plus`:
+
+`for all inputs A and B: A + B == B + A`
 
 <div class="notes">
 In property testing you assert that the output of a function should always have some
 relation to the input, for all input values. You build a random generator, and the framework
 will use that to generate many random values and check that the property holds
 </div>
-
-##
-
-Property of `plus`:
-
-`for all inputs A and B: A + B == B + A`
 
 ##
 
