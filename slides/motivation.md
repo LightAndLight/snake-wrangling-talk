@@ -1,11 +1,10 @@
-# Motivation
-
 ##
 
 How can we bring the benefits of better languages to existing codebases?
 
 <div class="notes">
-One of the things we're interested in at QFPL is how we can lower that barrier
+One question we are exploring at the lab is how to bring the benefits of good
+languages to existing codebases
 </div>
 
 ##
@@ -13,7 +12,10 @@ One of the things we're interested in at QFPL is how we can lower that barrier
 Language tooling
 
 <div class="notes">
-My attempt at an answer is through language tooling
+Our first attempt is through language tooling
+
+Being able to use Haskell to interact with existing code, and author new code in
+the existing language.
 </div>
 
 ##
@@ -21,10 +23,7 @@ My attempt at an answer is through language tooling
 Language tooling for Python
 
 <div class="notes">
-I was doing pure Python at my old job, and many people in data61 use python, so
-we decided on that as our first target.
-
-Actually, I think it was a toss up between Javascript and Python so Tony and I played a
-game of table tennis, and Tony won, so we did Python.
+We chose Python. It was a toss up between Javascript and Python, but Tony beat
+me in table tennis so we started with Python.
 </div>
 

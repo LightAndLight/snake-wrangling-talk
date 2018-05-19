@@ -300,7 +300,7 @@ But now that's a function call, not logical negation, because "notnot" is an ide
 
 ##
 
-Spaces are only required between tokens when their concatenation would give a single token
+Spaces are required between tokens when their concatenation would give a single token
 
 <div class="notes">
 WAY TOO MUCH to encode with types 

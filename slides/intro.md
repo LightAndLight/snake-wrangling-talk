@@ -16,25 +16,25 @@ append_to =
 ```
 
 <div class="notes">
-You can write python programs in Haskell
+Here's some Python code written with a Haskell DSL
 </div>
 
 ##
 
 ```python
-def append_to (element, to=[]):
+def append_to(element, to=[]):
     to.append(element)
     return to
 ```
 
 <div class="notes">
-It renders as this
+Here is the equivalent Python
 </div>
 
 ##
 
 ```python
-def append_to (element, to=None):
+def append_to(element, to=None):
     if to is None:
         to = []
     to.append(element)
